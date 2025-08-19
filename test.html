@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI RPA Testing Panel - Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <i data-feather="zap"></i>
+        </div>
+        <div class="brand-text">
+          <h1>RPA Testing Panel - Test</h1>
+          <span class="brand-subtitle">Testing New Elements</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <aside class="app-sidebar">
+        <div class="palette-section card">
+          <div class="section-header">
+            <h2>
+              <i data-feather="plus-circle"></i>
+              Add Elements
+            </h2>
+          </div>
+          <div class="element-palette">
+            <button id="add-text" class="palette-btn" data-element="text">
+              <div class="palette-btn-icon">
+                <i data-feather="type"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span class="palette-btn-title">Add Text</span>
+                <span class="palette-btn-desc">Static text display</span>
+              </div>
+            </button>
+            <button id="add-radio" class="palette-btn" data-element="radio">
+              <div class="palette-btn-icon">
+                <i data-feather="radio"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span class="palette-btn-title">Add Radio Button</span>
+                <span class="palette-btn-desc">Single choice selection</span>
+              </div>
+            </button>
+            <button id="add-checkbox" class="palette-btn" data-element="checkbox">
+              <div class="palette-btn-icon">
+                <i data-feather="check-square"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span class="palette-btn-title">Add Checkbox</span>
+                <span class="palette-btn-desc">Multiple choice selection</span>
+              </div>
+            </button>
+            <button id="add-dropdown" class="palette-btn" data-element="dropdown">
+              <div class="palette-btn-icon">
+                <i data-feather="chevron-down"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span class="palette-btn-title">Add Dropdown</span>
+                <span class="palette-btn-desc">Select from options</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="app-content">
+        <div class="panel-section card">
+          <div class="section-header">
+            <h2>
+              <i data-feather="monitor"></i>
+              UI Testing Panel
+            </h2>
+          </div>
+          <div id="ui-panel" class="ui-panel">
+            <!-- Test elements will be added here -->
+            <div class="element-wrapper">
+              <div class="dynamic-text text-heading text-color-primary">
+                Sample Heading Text
+              </div>
+            </div>
+            
+            <div class="element-wrapper">
+              <div class="radio-wrapper">
+                <div class="radio-group-label">Choose your favorite color:</div>
+                <div class="radio-container">
+                  <div class="radio-item">
+                    <input type="radio" name="color" value="red" id="color-red" class="radio-input" checked>
+                    <label for="color-red" class="radio-label">Red</label>
+                  </div>
+                  <div class="radio-item">
+                    <input type="radio" name="color" value="blue" id="color-blue" class="radio-input">
+                    <label for="color-blue" class="radio-label">Blue</label>
+                  </div>
+                  <div class="radio-item">
+                    <input type="radio" name="color" value="green" id="color-green" class="radio-input">
+                    <label for="color-green" class="radio-label">Green</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="element-wrapper">
+              <div class="checkbox-wrapper">
+                <div class="checkbox-group-label">Select your hobbies:</div>
+                <div class="checkbox-container">
+                  <div class="checkbox-item">
+                    <input type="checkbox" value="reading" id="hobby-reading" class="checkbox-input" checked>
+                    <label for="hobby-reading" class="checkbox-label">Reading</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" value="gaming" id="hobby-gaming" class="checkbox-input">
+                    <label for="hobby-gaming" class="checkbox-label">Gaming</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" value="sports" id="hobby-sports" class="checkbox-input" checked>
+                    <label for="hobby-sports" class="checkbox-label">Sports</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="element-wrapper">
+              <div class="dropdown-wrapper">
+                <label class="dropdown-label">Select your country:</label>
+                <select class="dynamic-dropdown">
+                  <option value="">Select an option...</option>
+                  <option value="usa" selected>United States</option>
+                  <option value="canada">Canada</option>
+                  <option value="uk">United Kingdom</option>
+                  <option value="germany">Germany</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Initialize Feather icons
+    feather.replace();
+    
+    // Add some basic interactivity for testing
+    document.addEventListener('DOMContentLoaded', () => {
+      // Test radio buttons
+      document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          console.log('Radio selected:', e.target.value);
+        });
+      });
+      
+      // Test checkboxes
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+          console.log('Checkbox', e.target.checked ? 'checked' : 'unchecked', ':', e.target.value);
+        });
+      });
+      
+      // Test dropdown
+      document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', (e) => {
+          console.log('Dropdown changed:', e.target.value);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

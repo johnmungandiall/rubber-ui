@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI RPA Testing Panel</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Add Feather Icons for modern iconography -->
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <i data-feather="zap"></i>
+        </div>
+        <div class="brand-text">
+          <h1>RPA Testing Panel</h1>
+          <span class="brand-subtitle">Automated UI Testing Suite</span>
+        </div>
+      </div>
+      <div class="header-controls">
+        <button id="theme-toggle" class="btn btn-icon" title="Toggle Theme">
+          <i data-feather="moon"></i>
+        </button>
+        <button id="settings-btn" class="btn btn-secondary">
+          <i data-feather="settings"></i>
+          <span>Settings</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      <!-- Sidebar -->
+      <aside class="app-sidebar">
+        <!-- Element Palette -->
+        <div class="palette-section card">
+          <div class="section-header">
+            <h2>
+              <i data-feather="plus-circle"></i>
+              Add Elements
+            </h2>
+            <span class="section-subtitle">Drag or click to add</span>
+          </div>
+          <div class="element-palette">
+            <button id="add-button" class="palette-btn" data-element="button">
+              <div class="palette-btn-icon">
+                <i data-feather="square"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span id="add-button-text" class="palette-btn-title">Add Button</span>
+                <span class="palette-btn-desc">Interactive button element</span>
+              </div>
+            </button>
+            <button id="add-input" class="palette-btn" data-element="input">
+              <div class="palette-btn-icon">
+                <i data-feather="edit-3"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span id="add-input-text" class="palette-btn-title">Add Input Dialog</span>
+                <span class="palette-btn-desc">Text input with dialog</span>
+              </div>
+            </button>
+            <button id="add-input-group" class="palette-btn" data-element="group">
+              <div class="palette-btn-icon">
+                <i data-feather="layers"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span id="add-input-group-text" class="palette-btn-title">Add Input Group</span>
+                <span class="palette-btn-desc">Multiple input fields</span>
+              </div>
+            </button>
+            <button id="add-text" class="palette-btn" data-element="text">
+              <div class="palette-btn-icon">
+                <i data-feather="type"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span id="add-text-text" class="palette-btn-title">Add Text</span>
+                <span class="palette-btn-desc">Static text display</span>
+              </div>
+            </button>
+            <button id="add-radio" class="palette-btn" data-element="radio">
+              <div class="palette-btn-icon">
+                <i data-feather="radio"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span id="add-radio-text" class="palette-btn-title">Add Radio Button</span>
+                <span class="palette-btn-desc">Single choice selection</span>
+              </div>
+            </button>
+            <button id="add-checkbox" class="palette-btn" data-element="checkbox">
+              <div class="palette-btn-icon">
+                <i data-feather="check-square"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span id="add-checkbox-text" class="palette-btn-title">Add Checkbox</span>
+                <span class="palette-btn-desc">Multiple choice selection</span>
+              </div>
+            </button>
+            <button id="add-dropdown" class="palette-btn" data-element="dropdown">
+              <div class="palette-btn-icon">
+                <i data-feather="chevron-down"></i>
+              </div>
+              <div class="palette-btn-content">
+                <span id="add-dropdown-text" class="palette-btn-title">Add Dropdown</span>
+                <span class="palette-btn-desc">Select from options</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-section card">
+          <div class="section-header">
+            <h2>
+              <i data-feather="bar-chart-2"></i>
+              Statistics
+            </h2>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-value" id="elements-count">0</span>
+              <span class="stat-label">Elements</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="events-count">0</span>
+              <span class="stat-label">Events</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <div class="app-content">
+        <!-- UI Panel -->
+        <div class="panel-section card">
+          <div class="section-header">
+            <h2>
+              <i data-feather="monitor"></i>
+              UI Testing Panel
+            </h2>
+            <div class="panel-controls">
+              <button id="clear-panel" class="btn btn-ghost btn-sm" title="Clear All Elements">
+                <i data-feather="trash-2"></i>
+              </button>
+              <button id="export-panel" class="btn btn-ghost btn-sm" title="Export Configuration">
+                <i data-feather="download"></i>
+              </button>
+            </div>
+          </div>
+          <div id="ui-panel" class="ui-panel">
+            <div class="panel-placeholder">
+              <div class="placeholder-icon">
+                <i data-feather="mouse-pointer"></i>
+              </div>
+              <h3>Start Building Your UI</h3>
+              <p>Add elements from the sidebar to begin testing</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="log-section card">
+          <div class="section-header">
+            <h2>
+              <i data-feather="activity"></i>
+              Event Log
+            </h2>
+            <div class="log-controls">
+              <button id="export-log" class="btn btn-ghost btn-sm" title="Export Log">
+                <i data-feather="download"></i>
+              </button>
+              <button id="clear-log" class="btn btn-ghost btn-sm" title="Clear Log">
+                <i data-feather="x"></i>
+              </button>
+            </div>
+          </div>
+          <div id="event-log" class="event-log">
+            <div class="log-placeholder">
+              <i data-feather="clock"></i>
+              <span>No events logged yet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Settings Panel (Hidden by default) -->
+    <div id="settings-panel" class="settings-panel hidden">
+      <div class="settings-overlay"></div>
+      <div class="settings-content">
+        <div class="settings-header">
+          <div class="settings-title">
+            <i data-feather="settings"></i>
+            <h2>Settings</h2>
+          </div>
+          <button id="close-settings" class="btn btn-icon">
+            <i data-feather="x"></i>
+          </button>
+        </div>
+        
+        <div class="settings-body">
+          <div class="settings-tabs">
+            <button class="tab-btn active" data-tab="interface">
+              <i data-feather="layout"></i>
+              Interface
+            </button>
+            <button class="tab-btn" data-tab="behavior">
+              <i data-feather="sliders"></i>
+              Behavior
+            </button>
+            <button class="tab-btn" data-tab="appearance">
+              <i data-feather="palette"></i>
+              Appearance
+            </button>
+          </div>
+
+          <div class="settings-tab-content">
+            <!-- Interface Tab -->
+            <div class="tab-panel active" data-panel="interface">
+              <div class="setting-group">
+                <h3>
+                  <i data-feather="type"></i>
+                  Button Labels
+                </h3>
+                <div class="form-group">
+                  <label for="button-text-add">Add Button Text:</label>
+                  <input type="text" id="button-text-add" value="Add Button" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label for="button-text-input">Add Input Text:</label>
+                  <input type="text" id="button-text-input" value="Add Input Dialog" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label for="button-text-input-group">Add Input Group Text:</label>
+                  <input type="text" id="button-text-input-group" value="Add Input Group" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label for="button-text-text">Add Text Text:</label>
+                  <input type="text" id="button-text-text" value="Add Text" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label for="button-text-radio">Add Radio Button Text:</label>
+                  <input type="text" id="button-text-radio" value="Add Radio Button" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label for="button-text-checkbox">Add Checkbox Text:</label>
+                  <input type="text" id="button-text-checkbox" value="Add Checkbox" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label for="button-text-dropdown">Add Dropdown Text:</label>
+                  <input type="text" id="button-text-dropdown" value="Add Dropdown" class="form-input">
+                </div>
+              </div>
+            </div>
+
+            <!-- Behavior Tab -->
+            <div class="tab-panel" data-panel="behavior">
+              <div class="setting-group">
+                <h3>
+                  <i data-feather="monitor"></i>
+                  Panel Dimensions
+                </h3>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="panel-width">Width (px):</label>
+                    <input type="number" id="panel-width" min="200" max="2000" value="800" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label for="panel-height">Height (px):</label>
+                    <input type="number" id="panel-height" min="100" max="1000" value="400" class="form-input">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="setting-group">
+                <h3>
+                  <i data-feather="zap"></i>
+                  Auto-Features
+                </h3>
+                <div class="form-group">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="auto-save" class="form-checkbox">
+                    <span class="checkbox-custom"></span>
+                    Auto-save configurations
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="auto-clear-log" class="form-checkbox">
+                    <span class="checkbox-custom"></span>
+                    Auto-clear log after 100 events
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Appearance Tab -->
+            <div class="tab-panel" data-panel="appearance">
+              <div class="setting-group">
+                <h3>
+                  <i data-feather="sun"></i>
+                  Theme
+                </h3>
+                <div class="theme-selector">
+                  <label class="theme-option">
+                    <input type="radio" name="theme" value="light" id="theme-light" class="theme-radio">
+                    <div class="theme-preview light-preview">
+                      <div class="theme-header"></div>
+                      <div class="theme-body"></div>
+                    </div>
+                    <span>Light</span>
+                  </label>
+                  <label class="theme-option">
+                    <input type="radio" name="theme" value="dark" id="theme-dark" class="theme-radio">
+                    <div class="theme-preview dark-preview">
+                      <div class="theme-header"></div>
+                      <div class="theme-body"></div>
+                    </div>
+                    <span>Dark</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="setting-group">
+                <h3>
+                  <i data-feather="eye"></i>
+                  Visual Options
+                </h3>
+                <div class="form-group">
+                  <label for="animation-speed">Animation Speed:</label>
+                  <select id="animation-speed" class="form-select">
+                    <option value="fast">Fast</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="slow">Slow</option>
+                    <option value="none">None</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="show-tooltips" class="form-checkbox" checked>
+                    <span class="checkbox-custom"></span>
+                    Show tooltips
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="settings-footer">
+          <button id="reset-settings" class="btn btn-ghost">
+            <i data-feather="rotate-ccw"></i>
+            Reset to Default
+          </button>
+          <div class="settings-actions">
+            <button id="cancel-settings" class="btn btn-secondary">Cancel</button>
+            <button id="save-settings" class="btn btn-primary">
+              <i data-feather="check"></i>
+              Save Settings
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Modal Dialog -->
+    <div id="custom-modal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title-section">
+            <i data-feather="edit-3" id="modal-icon"></i>
+            <h3 id="modal-title">Enter Details</h3>
+          </div>
+          <button id="modal-close" class="btn btn-icon">
+            <i data-feather="x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="modal-content-area">
+            <!-- Dynamic content will be inserted here -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="modal-cancel" class="btn btn-secondary">
+            <i data-feather="x"></i>
+            Cancel
+          </button>
+          <button id="modal-ok" class="btn btn-primary">
+            <i data-feather="check"></i>
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="renderer.js"></script>
+    <script>
+      // Initialize Feather icons
+      feather.replace();
+    </script>
+  </body>
+</html>

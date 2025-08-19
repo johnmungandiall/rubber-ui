@@ -1,0 +1,37 @@
+{
+  "name": "electron-ui-panel",
+  "version": "1.0.0",
+  "description": "UI Panel with configurable buttons and input dialogs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": [
+    "electron",
+    "ui",
+    "panel",
+    "rpa"
+  ],
+  "author": "User",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.example.ui-rpa-panel",
+    "productName": "UI RPA Testing Panel",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*",
+      "node_modules/electron/**/*"
+    ]
+  },
+  "dependencies": {
+    "electron": "^31.0.0"
+  }
+}
