@@ -2,6 +2,10 @@
 
 /* CSS Custom Properties (Variables) */
 :root {
+  /* System UI and UA hints */
+  color-scheme: light dark;
+  scrollbar-color: var(--border-secondary) var(--bg-secondary);
+  scrollbar-width: thin;
   /* Modernized Color Palette */
   --color-primary: #3b82f6; /* Bold blue for primary actions */
   --color-primary-hover: #1d4ed8;
@@ -259,6 +263,15 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+  /* Accessibility: ensure comfortable tap targets */
+  min-height: 44px;
+  min-width: 44px;
+  /* Performance and touch ergonomics */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .btn:disabled {
@@ -437,6 +450,9 @@ body {
   text-align: left;
   width: 100%;
   box-shadow: var(--shadow-sm);
+  /* Accessibility & performance */
+  min-height: 44px;
+  will-change: transform;
 }
 
 .palette-btn:hover {
@@ -540,6 +556,7 @@ body {
   align-content: flex-start;
   position: relative;
   transition: all var(--transition-normal);
+  will-change: background-color, border-color;
 }
 
 .ui-panel:hover {
@@ -1313,6 +1330,79 @@ body {
 }
 
 /* New Element Styles */
+
+/* UI Enhancements: accessibility, performance, optional modes */
+/* Focus within highlighting for form groups */
+.form-group:focus-within .form-input,
+.form-group:focus-within .form-select {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Backdrop blur fallback for unsupported browsers */
+@supports not ((-webkit-backdrop-filter: blur(4px)) or (backdrop-filter: blur(4px))) {
+  .modal-overlay,
+  .settings-panel {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* Virtualize heavy logs for faster TTI */
+.event-log {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px;
+}
+
+/* Opt-in AAA contrast mode */
+body.contrast-aaa {
+  --color-primary: #1e40af; /* AA/AAA-friendly against white with inverse text */
+  --color-primary-hover: #1e3a8a;
+  --color-primary-light: #c7d2fe;
+  --color-success: #065f46;
+  --color-warning: #92400e;
+  --color-danger: #7f1d1d;
+  --text-secondary: #1f2937; /* darker secondary for higher contrast */
+}
+
+/* Modes: zen (softer) and glance (compact, high signal) */
+body.mode-zen {
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --border-primary: var(--color-gray-200);
+  --bg-secondary: var(--color-gray-50);
+}
+body.mode-zen .app-header,
+body.mode-zen .card,
+body.mode-zen .ui-panel {
+  border-radius: var(--radius-2xl);
+}
+
+body.mode-glance {
+  --spacing-md: 0.875rem;
+  --spacing-lg: 1.25rem;
+  --shadow-sm: none;
+  --shadow-md: none;
+}
+body.mode-glance .btn {
+  min-height: 40px;
+}
+
+/* Touch ergonomics for icon-only buttons */
+@media (pointer: coarse) {
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn:hover,
+  .palette-btn:hover,
+  .btn-secondary:hover,
+  .btn-ghost:hover {
+    will-change: transform;
+  }
+}
 
 /* Text Element Styles */
 .dynamic-text {
